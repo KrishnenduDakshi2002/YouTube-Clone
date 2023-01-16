@@ -21,7 +21,7 @@ const Header = ({
   setNotificationToggling:()=>void;
 }) => {
   return (
-    <div className="bg-black h-[56px] flex items-center justify-between px-[16px]">
+    <div className="bg-black h-[56px] flex items-center justify-between px-[16px] relative z-10">
       <div className="flex items-center justify-evenly ">
         <button
           // just invoking or calling the setSidebarToggling function passed from the parent

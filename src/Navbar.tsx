@@ -43,7 +43,7 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
           setSideBarToggling={() => setToggleSideBar((prev) => !prev)}
         />
         {ToggleNotification ? (
-          <div className="w-[30rem] h-[80%] absolute top-[50px] right-[5rem]">
+          <div className="w-[30rem] h-[80%] absolute top-[50px] right-[5rem] z-10">
             <NotificationBox />
           </div>
         ) : null}
@@ -72,7 +72,7 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
         <SideBarMini />
       </div>
       <div
-        className={`absolute left-0 top-0 h-full 2xl:hidden ${
+        className={`z-10 absolute left-0 top-0 h-full 2xl:hidden ${
           !ToggleSideBar ? "translate-x-[-100%]" : "translate-x-0"
         } ease-[cubic-bezier(0.25, 0.46, 0.45, 0.94)] duration-200`}
       >
