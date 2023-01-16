@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* this is for Chrome and Safari */
+.scrollbar-hidden::-webkit-scrollbar{
+    display: none;
+}
+/* This is for Firefox */
+.scrollbar-hidden{
+    scrollbar-width: none;
+}
+
+
+.flex-center-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-oveflow-hidden{
+    --line-height: 1.4;
+    --lines: 2;
+
+    max-height: calc(var(--line-height)*1em*var(--lines));
+    line-height: var(--line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+}
