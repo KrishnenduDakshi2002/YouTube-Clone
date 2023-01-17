@@ -1,5 +1,5 @@
 import { useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import VideoPlayer from "./VideoPlayer";
 import Thumbnail1 from "../assets/Thumbnail-1.jpg";
@@ -8,6 +8,7 @@ import Thumbnail3 from "../assets/Thumbnail-3.jpg";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineWatchLater, MdPlaylistPlay } from "react-icons/md";
 import CommentSection from "./CommentSection";
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 
 const Filters = [
   "All",
@@ -30,33 +31,40 @@ const VideoScreen = () => {
         <div className="aspect-video ">
           <VideoPlayer />
         </div>
-        <div className="mt-5 text-white text-xl font-bold ">
+        <div className="mt-5 text-white text-xl font-bold">
           OVERWATCH 2 & 1 Full Movie (2020) All Animated Short Cinematics 4K
           ULTRA HD
         </div>
-        <div className="h-[2.8rem] grid grid-cols-[1fr_2fr_3fr_5fr_3fr_2fr_1fr] gap-x-2 bg-blue-300 border border-red-500">
+        <div className="grid grid-cols-[1fr_2fr_3fr_5fr_3fr_2fr_1fr] gap-x-2 mt-5">
           <div className="bg-green-300 rounded-full w-[2.5rem] h-[2.5rem]"></div>
-          <div className="bg-blue-300">
+          <div className=" text-white">
             <div className="">Youtube</div>
+            <div className="text-xs truncate">128M Subscribers</div>
           </div>
-          <div className="bg-white rounded-2xl my-1 flex justify-center items-center font-semibold font-sans cursor-pointer">
+          <div className="bg-white min-w-[140px] rounded-2xl flex justify-center items-center font-semibold font-sans cursor-pointer">
             Subscribe
           </div>
           <div className=""></div>
-          <div className="bg-gray-400 rounded-full my-1 grid grid-cols-[2fr_1fr] overflow-hidden">
-            <div className="bg-pink-300"></div>
+          <div className="bg-[#282828] rounded-2xl grid grid-cols-[2fr_1fr] overflow-hidden min-w-[8rem]">
+            <div className="flex-center-center text-white">
+              <AiOutlineLike size={25} />
+              <span>400</span>
+            </div>
+            <div className="flex-center-center text-white">
+              <AiOutlineDislike size={25} />
+            </div>
           </div>
-          <div className="bg-gray-400 rounded-full my-1"></div>
-          <div className="bg-gray-400 rounded-full my-1">
+          <div className="bg-gray-400 rounded-full"></div>
+          <div className="bg-gray-400 rounded-full">
             <BsThreeDotsVertical color={`white`} size={22} />
           </div>
         </div>
         <div className="pt-5">
-            <CommentSection/>
+          <CommentSection />
         </div>
       </div>
       <div className="overflow-y-scroll scrollbar-hidden">
-        <SideVideoBar/>
+        <SideVideoBar />
       </div>
     </div>
   );
@@ -66,7 +74,7 @@ const SideVideoBar = () => {
   const [active, setActive] = useState("0");
 
   return (
-    <div className="w-full h-full grid grid-rows-[3rem_1fr] pt-5 pr-1">
+    <div className="w-full h-full grid grid-rows-[3rem_1fr] pt-5 pl-5 pr-1">
       <div className="h-[3rem] grid grid-flow-col overflow-x-scroll scrollbar-hidden py-[8px]">
         {Filters.map((filter, i) => (
           <button key={i} onClick={() => setActive(i.toString())}>
@@ -83,28 +91,27 @@ const SideVideoBar = () => {
         ))}
       </div>
       <div className="bg-black overflow-y-scroll scrollbar-hidden pt-2">
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
-          <SideVideoTile/>
+        {Array.from({ length: 10 }, (v, i) => (
+          <div key={i}>
+            <SideVideoTile />
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 const SideVideoTile = () => {
+  const [ToggleMenu, setToggleMenu] = useState(false);
+  useEffect(() => {
+    // window.addEventListener('click',(e)=>console.log(e.target))
+  }, [])
+  
   return (
-    <div className="my-2 group grid grid-rows-[1fr_0.3fr_0.3fr_0.5fr] grid-cols-[12rem_3fr_0.05fr] gap-1 cursor-pointer">
-      <div className="bg-green-300 row-span-full rounded-xl overflow-hidden mr-[5px] relative">
-        <img src={Thumbnail3} alt="" className="object-cover aspect-video" />
-        <p className="bg-black text-white text-sm absolute bottom-1 right-2 p-1">
+    <div className="group grid grid-rows-[1fr_0.3fr_0.5fr_0.5fr] grid-cols-[12rem_3fr_0.05fr] gap-1 cursor-pointer relative">
+      <div className="bg-green-300 row-span-full rounded-xl overflow-hidden mr-[5px] relative aspect-video">
+        <img src={Thumbnail3} alt="" className="object-cover" />
+        <p className="bg-black text-white text-sm absolute bottom-[2px] right-2 p-1 rounded-md">
           22:15
         </p>
         <div className="group-hover:flex hidden bg-[#5a5a5a] w-[1.725rem] h-[1.75rem] absolute top-2 right-2 justify-center items-center rounded-md">
@@ -114,22 +121,36 @@ const SideVideoTile = () => {
           <MdPlaylistPlay color={`white`} size={25} />
         </div>
       </div>
-      <div className=" col-start-2 text-sm font-semibold text-white text-oveflow-hidden">
-        How People Profit Off India’s Garbage | World Wide Waste | Business
-        Insider
+      <div className=" col-start-2">
+        <p className="text-sm font-semibold text-white text-oveflow-hidden">
+          How People Profit Off India’s Garbage | World Wide Waste | Business
+          Insider
+        </p>
       </div>
       <div className="group-hover:visible invisible">
-        <BsThreeDotsVertical color={`white`} size={22} />
+        <button onClick={() => setToggleMenu((prev) => !prev)}>
+          <BsThreeDotsVertical color={`white`} size={22} />
+        </button>
       </div>
-      <div className="col-start-2 text-[0.85rem] text-gray-300 leading-6">
-        Inside Business
+      <div className="col-start-2 ">
+        <p className="text-[0.85rem] text-gray-300 truncate">Inside Business</p>
       </div>
-      <div className="col-start-2 text-[0.85rem] text-gray-300">
-        20k views . 2 weeks ago
+      <div className="col-start-2 ">
+        <p className="text-[0.85rem] text-gray-300 overflow-y-hidden truncate">
+          20k views . 2 weeks ago
+        </p>
       </div>
       <div className="bg-orange-300 col-start-2 hidden">live</div>
+      <SideBarVideoTileMenu toggle={ToggleMenu}/>
     </div>
   );
 };
+
+function SideBarVideoTileMenu({toggle}:{toggle:boolean}) {
+
+  return (
+    <div className={`bg-red-300 w-[250px] h-[10rem] absolute top-[2rem] right-0 ${toggle?'block':'hidden'} z-10`}>menu</div>
+  );
+}
 
 export default VideoScreen;

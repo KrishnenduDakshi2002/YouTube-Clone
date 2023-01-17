@@ -3,10 +3,9 @@ import { MdOutlineWatchLater, MdPlaylistPlay } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const VideoComponent = ({ key,videoId }: { key:string;videoId:string; }) => {
-  console.log(videoId);
   return (
     // Transform origin-top (any transformation will originated from top, in this case we have scale)
-    <Link to={`/watch?v=${key}`} className="">
+    <Link to={`/watch?v=${videoId}`} className="">
       <div className="group bg-green-300 cursor-pointer h-[330px] max-w-[25rem]">
         <div
           className="group-hover:hidden w-full h-full
