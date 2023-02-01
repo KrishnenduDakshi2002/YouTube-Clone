@@ -5,7 +5,7 @@ import VideoPlayer from "./VideoPlayer";
 import Thumbnail1 from "../assets/Thumbnail-1.jpg";
 import Thumbnail2 from "../assets/Thumbnail-2.jpg";
 import Thumbnail3 from "../assets/Thumbnail-3.jpg";
-import { BsThreeDotsVertical } from "react-icons/bs";
+// import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineWatchLater, MdPlaylistPlay } from "react-icons/md";
 import CommentSection from "./CommentSection";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
@@ -56,7 +56,7 @@ const VideoScreen = () => {
           </div>
           <div className="bg-gray-400 rounded-full"></div>
           <div className="bg-gray-400 rounded-full">
-            <BsThreeDotsVertical color={`white`} size={22} />
+            {/* <BsThreeDotsVertical color={`white`} size={22} /> */}
           </div>
         </div>
         <div className="pt-5">
@@ -129,7 +129,7 @@ const SideVideoTile = () => {
       </div>
       <div className="group-hover:visible invisible">
         <button onClick={() => setToggleMenu((prev) => !prev)}>
-          <BsThreeDotsVertical color={`white`} size={22} />
+          {/* <BsThreeDotsVertical color={`white`} size={22} /> */}
         </button>
       </div>
       <div className="col-start-2 ">

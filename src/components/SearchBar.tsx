@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { BsSearch } from "react-icons/bs";
 import { VscHistory } from "react-icons/vsc";
 import HISTORY from "../data/search_history.json";
 import { AiOutlineSearch } from "react-icons/ai";
