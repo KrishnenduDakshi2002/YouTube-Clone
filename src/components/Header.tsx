@@ -14,6 +14,7 @@ import { TbEdit } from "react-icons/tb";
 
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import VoiceSearchComponent from "./VoiceSearchComponent";
 
 const CreateMenu = [
   {
@@ -40,6 +41,7 @@ const Header = ({
   setNotificationToggling: () => void;
 }) => {
   const [ToggleCreate, setToggleCreate] = useState(false);
+  const [ToggleVoiceSearch, setToggleVoiceSearch] = useState(false);
   let TargetId: string;
 
   window.addEventListener("click", (e) => {
@@ -73,9 +75,13 @@ const Header = ({
       {/* searchbar and voice container */}
       <div className="h-full hidden md:flex justify-center items-center w-[55%] pl-20">
         <SearchBar />
-        <div className="rounded-full p-2 bg-[#181818] ml-2">
+        <button className="rounded-full p-2 bg-[#181818] ml-2" onClick={()=>setToggleVoiceSearch(prev=>!prev)}>
           <IoMdMic color="white" size={25} />
-        </div>
+        </button>
+        {
+          ToggleVoiceSearch&&
+          <VoiceSearchComponent setIsVisibleVoiceSearch={()=>setToggleVoiceSearch(prev=>!prev)}/>
+        }
       </div>
       <div className="h-full w-1/6 flex justify-end items-center pr-1 ml-[3rem]">
         {/* **************   short version of search btn and voice *************/}

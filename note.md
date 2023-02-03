@@ -13,3 +13,11 @@ https://bobbyhadz.com/blog/aws-s3-allow-public-read-access
 1. first make the block public user access uncheck while creating the bucket
 2. then edit the bucket policy so public only has read access to the bucket not write
 3. putting object still takes accesskey and scretekey
+
+## not Triggering parent when child element
+>> Example in VoiceSearchComponent
+stop propagating click evnet from child to parent
+
+in child element
+
+onClick(e=> e.stopPropagation())
