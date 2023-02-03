@@ -14,6 +14,7 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
   const [Toggle_Header_sm_screen, setToggle_Header_sm_screen] = useState(false);
   const [ToggleSideBar, setToggleSideBar] = useState(false);
   const [ToggleNotification, setToggleNotification] = useState(false);
+  const [ToggleCreate, setToggleCreate] = useState(false);
   return (
     <div
       className={`grid 
@@ -42,11 +43,11 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
           setHeaderToggling={(state) => setToggle_Header_sm_screen(state)}
           setSideBarToggling={() => setToggleSideBar((prev) => !prev)}
         />
-        {ToggleNotification ? (
+        {ToggleNotification && (
           <div className="w-[30rem] h-[80%] absolute top-[50px] right-[5rem] z-10">
             <NotificationBox />
           </div>
-        ) : null}
+        )}
       </div>
       <div
         className={`${

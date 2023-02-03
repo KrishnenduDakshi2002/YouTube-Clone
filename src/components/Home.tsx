@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import VideosWrapper from "./VideosWrapper";
+import AddToQueueComponent from "./AddToQueueComponent";
+import { useAddtoQueueContext } from "../Context/AddToQueueContext";
 const Filters = [
   "All",
   "Gaming",
@@ -25,10 +27,13 @@ const Filters = [
   "Movie review",
 ];
 const Home = () => {
+  const {AddtoQueueList} = useAddtoQueueContext();
   const [filter, setfilter] = useState("");
   const [active, setActive] = useState("0");
+  const [isAddToQueueVisible, setIsAddToQueueVisible] = useState(true);
+
   return (
-    <div className="bg-black w-full h-full grid grid-rows-[3rem_1fr]">
+    <div className="bg-black w-full h-full grid grid-rows-[3rem_1fr] relative">
       <div className="grid  grid-flow-col overflow-x-auto scrollbar-hidden py-2">
         {Filters.map((filter, id) => (
           <button
@@ -51,7 +56,11 @@ const Home = () => {
       </div>
 
       {/* https://codepen.io/lookininward/pen/zYOQjZM */}
-      <VideosWrapper/>
+      <VideosWrapper />
+      {
+        AddtoQueueList.length > 0 && isAddToQueueVisible &&
+      <AddToQueueComponent setVisibility={()=>setIsAddToQueueVisible(prev=>!prev)}/>
+      }
     </div>
   );
 };

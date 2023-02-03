@@ -19,7 +19,7 @@ const SearchBar = () => {
           }}
           placeholder="Search"
           value={searchText}
-          className="bg-inherit w-full h-full rounded-l-3xl outline-none px-5 text-white border-[1px] border-gray-600 focus:border-[1px] focus:border-blue-600"
+          className="bg-inherit w-full h-full rounded-l-3xl outline-none px-5 text-white border-[0.5px] border-gray-700 focus:border-[1px] focus:border-blue-600"
         />
         <div
           className={`${

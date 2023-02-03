@@ -8,8 +8,27 @@ import SearchBar from "./SearchBar";
 import { AiOutlineSearch } from "react-icons/ai";
 import { TfiAngleLeft } from "react-icons/tfi";
 import { useState } from "react";
-import NotificationBox from "./Notification";
 import { Link } from "react-router-dom";
+import { RiBroadcastLine, RiVideoUploadFill } from "react-icons/ri";
+import { TbEdit } from "react-icons/tb";
+
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
+const CreateMenu = [
+  {
+    Icon: RiVideoUploadFill,
+    title: "Create video",
+  },
+  {
+    Icon: RiBroadcastLine,
+    title: "Go live",
+  },
+  {
+    Icon: TbEdit,
+    title: "Create post",
+  },
+];
 
 const Header = ({
   setHeaderToggling,
@@ -18,8 +37,18 @@ const Header = ({
 }: {
   setHeaderToggling: (state: boolean) => void;
   setSideBarToggling: () => void;
-  setNotificationToggling:()=>void;
+  setNotificationToggling: () => void;
 }) => {
+  const [ToggleCreate, setToggleCreate] = useState(false);
+  let TargetId: string;
+
+  window.addEventListener("click", (e) => {
+    if (e.target != null) {
+      if ("id" in e.target) TargetId = e.target.id as string;
+      // console.log(TargetId);
+    }
+  });
+
   return (
     <div className="bg-black h-[56px] flex items-center justify-between px-[16px] relative z-10">
       <div className="flex items-center justify-evenly ">
@@ -42,7 +71,7 @@ const Header = ({
         </Link>
       </div>
       {/* searchbar and voice container */}
-      <div className="h-full hidden md:flex justify-center items-center w-[60%] pl-20">
+      <div className="h-full hidden md:flex justify-center items-center w-[55%] pl-20">
         <SearchBar />
         <div className="rounded-full p-2 bg-[#181818] ml-2">
           <IoMdMic color="white" size={25} />
@@ -62,11 +91,29 @@ const Header = ({
             <IoMdMic color="white" size={25} />
           </div>
         </div>
-        <button>
-          <div className="rounded-full hover:bg-[#181818] p-2 m-[0.4rem]">
+        <div className="relative rounded-full hover:bg-[#181818] w-10 h-10 m-[0.4rem] flex justify-center items-center">
+          <button onClick={() => setToggleCreate((prev) => !prev)}>
             <BiVideoPlus color="white" size={25} />
-          </div>
-        </button>
+          </button>
+          {
+            ToggleCreate && (
+              // overlay
+              <div className="fixed top-0 left-0 right-0 bottom-0 z-[100]" onClick={()=>setToggleCreate(prev=>!prev)}>
+                {/* modal */}
+                <div id="create_menu_container" className="bg-[#282828] overflow-hidden flex flex-col absolute w-[12rem] h-[8rem] rounded-xl right-[7rem] top-[50px] text-white">
+                  {
+                    CreateMenu.map(({Icon,title},i)=>
+                    <button id="create_menu_btn" key={i} className="flex-1 px-4 flex items-center hover:bg-gray-700" onClick={()=>console.log('clicked')}>
+                      <Icon size={22}/>
+                      <p className="ml-4">{title}</p>
+                    </button>
+                    )
+                  }
+                </div>
+              </div>
+            )
+          }
+        </div>
         <div className="rounded-full hover:bg-[#181818] p-2 m-[0.4rem] relative">
           <button onClick={() => setNotificationToggling()}>
             <IoMdNotificationsOutline color="white" size={25} />

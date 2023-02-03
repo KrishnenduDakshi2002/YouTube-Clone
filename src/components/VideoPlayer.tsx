@@ -27,9 +27,6 @@ const VideoPlayer = () => {
     }
   };
 
-  useEffect(()=>{
-    document.addEventListener("click", (e)=> console.log(e.target));
-  },[])
 
 
   return (

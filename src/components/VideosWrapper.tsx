@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
 import YouTubeShort from "../assets/youtube-shorts.png";
 import { VideoComponent } from "../components/components";
-
+import SEARCH1 from '../data/SEARCH_1.json';
 
 
 const VideosWrapper = () => {
   return (
-    <section className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] grid-flow-row gap-4 overflow-y-scroll px-6 py-4">
-      {Array.from({ length: 16 }, (v, i) => (
-        <VideoComponent key={i.toString()} videoId={i.toString()}/>
+    <section className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] grid-flow-row gap-4 overflow-y-scroll px-6 py-4 relative">
+      {SEARCH1.items.map((v, i) => (
+        <VideoComponent key={i.toString()} videoId={i.toString()}
+        channelTitle={v.snippet.channelTitle}
+        id={v.etag}
+        title={v.snippet.title}
+        thumbnail={v.snippet.thumbnails.high.url}
+        liveBroadcastContent = {v.snippet.liveBroadcastContent}
+        publishedAt={new Date(v.snippet.publishedAt)}
+        />
       ))}
       <div className="col-span-full row-start-3">
         <ShortsSection />
@@ -17,6 +24,7 @@ const VideosWrapper = () => {
       <div className="col-span-full row-start-5">
         <LatestYoutubePostSection />
       </div>
+
     </section>
   );
 };

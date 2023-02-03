@@ -50,48 +50,57 @@ const Sidebar = () => {
         <div className="w-full px-3 border-b-[1px] border-gray-800">
           <div className="border-b-[1px] border-gray-800 py-3">
             < SidebarTile
+              key={1}
               path={'/'}
               Icon={<AiFillHome color="white" size={22} />}
               title="Home"
-            />
+              />
             < SidebarTile
+              key={2}
               path="/shorts"
               Icon={<img src={YoutubeShortWhite} className="w-[20px]"/>}
               title="Shorts"
-            />
+              />
             < SidebarTile
+              key={3}
               path="/subscriptions"
               Icon={<MdOutlineSubscriptions color="white" size={25} />}
               title="Subscriptions"
-            />
+              />
           </div>
           <div className="pt-3">
             < SidebarTile
+              key={4}
               path="/"
               Icon={<MdOutlineVideoLibrary color="white" size={25} />}
               title="Library"
-            />
+              />
             < SidebarTile
+              key={5}
               path="/"
               Icon={<VscHistory color="white" size={22} />}
               title="History"
-            />
+              />
             < SidebarTile
+              key={6}
               path="/"
               Icon={<AiOutlinePlaySquare color="white" size={25} />}
               title="Your videos"
               />
             < SidebarTile
+              key={7}
               path="/"
               Icon={<MdOutlineWatchLater color="white" size={25} />}
               title="Watch Later"
               />
             < SidebarTile
+              key={8}
               path="/"
               Icon={<MdOutlineContentCut color="white" size={22} />}
               title="Watch Later"
               />
             < SidebarTile
+              key={9}
               path="/"
               Icon={<BiLike color="white" size={22} />}
               title="Liked Videos"
@@ -126,14 +135,12 @@ const Sidebar = () => {
 };
 
 const SidebarTile = ({
-  key,
   Icon,
   title,
   active,
   onClick,
   path,
 }: {
-  key?: string | number;
   Icon: any;
   title: string;
   active?: boolean;
@@ -143,7 +150,6 @@ const SidebarTile = ({
   return (
     <Link to={path} className="bg-white">
       <div
-        key={key}
         className={`flex justify-start items-center ${
           active ? "bg-[#272727]" : "bg-none"
         } hover:bg-[#272727] px-3 py-[0.6rem] rounded-xl`}

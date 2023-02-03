@@ -13,6 +13,9 @@ dist-ssr
 *.local
 src/assets/Video
 
+.env
+.DS_Store
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
