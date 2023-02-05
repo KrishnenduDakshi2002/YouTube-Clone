@@ -111,7 +111,9 @@ function Controls({
       // for updating the timeline
       if(TimeLine.current != null && VideoRef.current != null){
         const timeFactor = VideoRef.current.currentTime / VideoRef.current.duration;
+        const bufferFactor = VideoRef.current.buffered.end(0) / VideoRef.current.duration;
         TimeLine.current.style.setProperty('--progress',timeFactor.toString());
+        TimeLine.current.style.setProperty('--buffer',bufferFactor.toString());
       }
     };
   }
