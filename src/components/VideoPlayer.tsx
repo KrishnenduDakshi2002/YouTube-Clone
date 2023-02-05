@@ -4,13 +4,32 @@ import TestVideo from "../assets/Video/test-video.mp4";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { GrPauseFill, GrPlayFill } from "react-icons/gr";
 // import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
-import {FaPlay,FaPause} from 'react-icons/fa';
+import { FaPlay, FaPause } from "react-icons/fa";
 import { IconType, IconBaseProps } from "react-icons";
 import { MdClosedCaption } from "react-icons/md";
 import { TbPictureInPicture, TbRectangle } from "react-icons/tb";
 import { BiFullscreen } from "react-icons/bi";
 
-import {useEffect} from 'react';
+import "../css/VideoPlayer.css";
+
+const LeadingZeroFormater = Intl.NumberFormat(undefined, {
+  minimumIntegerDigits: 2,
+});
+
+function FormatDuration(time: number) {
+  const minutes = Math.floor(time / 60) % 60;
+  const seconds = Math.floor(time % 60);
+  const hours = Math.floor(minutes / 60);
+  if (hours === 0) {
+    return `${LeadingZeroFormater.format(minutes)}:${LeadingZeroFormater.format(
+      seconds
+    )}`;
+  } else {
+    return `${LeadingZeroFormater.format(hours)}:${LeadingZeroFormater.format(
+      minutes
+    )}:${LeadingZeroFormater.format(seconds)}`;
+  }
+}
 
 const VideoPlayer = () => {
   const VideoRef = useRef<HTMLVideoElement | null>(null);
@@ -27,18 +46,21 @@ const VideoPlayer = () => {
     }
   };
 
-
-
   return (
     <div ref={VideoContrainerRef} className="relative bg-black">
-      <Controls VideoRef={VideoRef}
-        VideoContainerRef={VideoContrainerRef}
-        SeekRef={SeekRef}
-      />
+      <Controls VideoRef={VideoRef} VideoContainerRef={VideoContrainerRef} />
       <video
         src={TestVideo}
         ref={VideoRef}
         onPlay={() => {}}
+        onProgress={(e) => {
+          const target = e.target as HTMLVideoElement;
+          const Buffer = target.buffered.end(0);
+          const duration = target.duration;
+          const currentTime = target.currentTime;
+          console.log("buffered: ", (Buffer / duration) * 100);
+          console.log("current time: ", currentTime);
+        }}
         className="h-full w-full"
         onTimeUpdate={HandleProgress}
       ></video>
@@ -48,21 +70,20 @@ const VideoPlayer = () => {
 
 function Controls({
   VideoRef,
-  SeekRef,
   VideoContainerRef,
 }: {
   VideoRef: React.MutableRefObject<HTMLVideoElement | null>;
-  SeekRef: React.MutableRefObject<HTMLInputElement | null>;
-  VideoContainerRef:React.MutableRefObject<HTMLDivElement | null>;
+  VideoContainerRef: React.MutableRefObject<HTMLDivElement | null>;
 }) {
   const [isPlaying, setisPlaying] = useState(false);
-  const [Progress, setProgress] = useState(0);
   const [ToggleAutoPlay, setToggleAutoPlay] = useState(false);
   const VolumeRef = useRef<HTMLInputElement | null>(null);
   const [Theme, setTheme] = useState("white");
-  const [Duration, setDuration] = useState(0);
 
-
+  const CurrentTimeStamp = useRef<HTMLParagraphElement | null>(null);
+  const DurationTimeStamp = useRef<HTMLParagraphElement | null>(null);
+  const TimeLine = useRef<HTMLDivElement | null>(null);
+  const BufferLine = useRef<HTMLDivElement | null>(null);
 
   function ToggleFullScreen() {
     if (VideoContainerRef.current) {
@@ -71,21 +92,73 @@ function Controls({
       else document.exitFullscreen();
     }
   }
+
+  // getting duration and setting it to current time and duration paragraph
+  if (VideoRef.current != null) {
+    VideoRef.current.ontimeupdate = () => {
+      // for updating the current time
+      if (CurrentTimeStamp.current) {
+        CurrentTimeStamp.current.innerText = FormatDuration(
+          VideoRef.current?.currentTime || 0
+        );
+      }
+      // for updating the duration
+      if (DurationTimeStamp.current) {
+        DurationTimeStamp.current.innerText = FormatDuration(
+          VideoRef.current?.duration || 0
+        );
+      }
+      // for updating the timeline
+      if(TimeLine.current != null && VideoRef.current != null){
+        const timeFactor = VideoRef.current.currentTime / VideoRef.current.duration;
+        TimeLine.current.style.setProperty('--progress',timeFactor.toString());
+      }
+    };
+  }
+
+  function HandleSeeking(e: React.MouseEvent<HTMLDivElement, MouseEvent>){
+    const target = e.target as HTMLDivElement;
+    const rect = target.getBoundingClientRect();
+    const percentage =
+      Math.min(Math.max(0, e.clientX - rect.x), rect.width) /
+      rect.width;
+    return percentage;
+  }
+
   return (
-    <div className="z-10 w-full h-[3rem] cursor-pointer absolute bottom-0 grid grid-rows-[1rem_1fr] grid-cols-[repeat(3,1fr)_2fr_10fr_1.1fr_repeat(5,1fr)]">
+    <div className="z-10 w-full h-[3rem] absolute bottom-0 grid grid-rows-[1rem_1fr] grid-cols-[repeat(3,1fr)_2fr_10fr_1.1fr_repeat(5,1fr)]">
       <div className="col-span-full flex-center-center">
-        <input
-          ref={SeekRef}
-          defaultValue={0}
-          type="range"
-          className="w-full bg-red-600 h-[5px]"
-          step={"0"}
-          onChange={(e) => {
-            if (VideoRef.current) {
-              VideoRef.current.currentTime = +e.target.value;
+        {/* timeline */}
+        <div
+          ref={TimeLine}
+          className="timeline-container"
+          onMouseMove={(e) => {
+            const percentage = HandleSeeking(e);
+            if (TimeLine.current != null) {
+              TimeLine.current.style.setProperty(
+                "--buffer",
+                percentage.toString()
+              );
             }
           }}
-        />
+          onClick={(e) => {
+            const percentage = HandleSeeking(e);
+            if (TimeLine.current != null) {
+              TimeLine.current.style.setProperty(
+                "--progress",
+                percentage.toString()
+              );
+            }
+            if(VideoRef.current != null){
+              VideoRef.current.currentTime = VideoRef.current.duration * percentage;
+            }
+          }}
+        >
+          <div
+            className="timeline-cursor"
+            onMouseMove={(e) => e.stopPropagation()}
+          ></div>
+        </div>
       </div>
       {!isPlaying && (
         <Button
@@ -93,9 +166,7 @@ function Controls({
             VideoRef.current?.play();
             setisPlaying(true);
           }}
-          icon={
-          <FaPlay color="white" size={25}/>
-        }
+          icon={<FaPlay color="white" size={25} />}
         />
       )}
       {isPlaying && (
@@ -104,9 +175,7 @@ function Controls({
             VideoRef.current?.pause();
             setisPlaying(false);
           }}
-          icon={
-            <FaPause color="white" size={25}/>
-        }
+          icon={<FaPause color="white" size={25} />}
         />
       )}
       <Button icon={<AiOutlineStepForward color={Theme} size={30} />} />
@@ -127,8 +196,10 @@ function Controls({
         />
       </div>
 
-      <div className="text-[0.8rem] text-white flex-center-center w-[7rem]">
-        00:00 / 20:12
+      <div className="text-[0.8rem] text-white flex-center-center w-[7rem] flex items-center">
+        <p ref={CurrentTimeStamp}>00:00</p>
+        <span>/</span>
+        <p ref={DurationTimeStamp}>23:12</p>
       </div>
       <div className=""></div>
       <div className="flex-center-center w-[2.5rem]">
