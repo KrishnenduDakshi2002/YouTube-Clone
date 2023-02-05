@@ -1,0 +1,51 @@
+
+.timeline-container{
+    position: relative;
+    width: 100%;
+    height: 0.25rem;
+    background-color: gray;
+    cursor: pointer;
+}
+
+.timeline-container:hover{
+    height: 0.4rem;
+}
+
+.timeline-container::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: calc(100% - var(--buffer) * 100%);
+    height: 100%;
+    background-color: rgb(199, 199, 199);
+    cursor: pointer;
+}
+
+.timeline-container::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: calc(100% - var(--progress) * 100%);
+    height: 100%;
+    background-color: red;
+    cursor: pointer;
+}
+
+.timeline-cursor{
+    --scale: 0;
+    background-color:red;
+    height: 200%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: -50%;
+    right:calc(100% - var(--progress) * 100%);
+    transform: translateX(50%) scale(var(--scale));
+    border-radius: 50%;
+    transition: transform 0.1s ease-in-out;
+}
+
+.timeline-container:hover .timeline-cursor{
+    --scale: 1;
+}
