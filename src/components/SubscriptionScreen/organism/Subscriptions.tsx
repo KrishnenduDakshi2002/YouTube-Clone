@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import {uploadFile} from '../AWS/uploadFile';
+import {uploadFile} from '../../../AWS/uploadFile';
 
 
 const Subscriptions = () => {

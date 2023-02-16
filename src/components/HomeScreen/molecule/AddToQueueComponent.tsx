@@ -4,7 +4,7 @@ import { MdDragHandle, MdKeyboardArrowDown } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Thumbnail4 from "../assets/Thumbnail-4.jpg";
 
-import { useAddtoQueueContext } from "../Context/AddToQueueContext";
+import { useAddtoQueueContext } from "../../../Context/AddToQueueContext";
 import { RxExternalLink } from "react-icons/rx";
 import { FaPause, FaPlay } from "react-icons/fa";
 import {

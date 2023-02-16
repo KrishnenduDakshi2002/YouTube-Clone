@@ -1,13 +1,13 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "../molecule/VideoPlayer";
 import Thumbnail1 from "../assets/Thumbnail-1.jpg";
 import Thumbnail2 from "../assets/Thumbnail-2.jpg";
 import Thumbnail3 from "../assets/Thumbnail-3.jpg";
 // import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineWatchLater, MdPlaylistPlay } from "react-icons/md";
-import CommentSection from "./CommentSection";
+import CommentSection from "../molecule/CommentSection";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 
 const Filters = [

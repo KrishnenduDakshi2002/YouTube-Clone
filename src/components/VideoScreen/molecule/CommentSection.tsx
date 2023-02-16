@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Comment from "./Comment";
+import Comment from "../atom/Comment";
 import { MdOutlineSort } from "react-icons/md";
-import Comments from '../data/comments.json';
+import Comments from '../../../data/comments.json';
 import NestedComment from "./NestedComment";
 
 const CommentSection = () => {

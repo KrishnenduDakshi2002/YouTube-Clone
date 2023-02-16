@@ -15,19 +15,24 @@ import { TbEdit } from "react-icons/tb";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import VoiceSearchComponent from "./VoiceSearchComponent";
+import NotificationBox from "./Notification";
+import '../css/Dialog.css';
 
 const CreateMenu = [
   {
     Icon: RiVideoUploadFill,
     title: "Create video",
+    path: 'upload'
   },
   {
     Icon: RiBroadcastLine,
     title: "Go live",
+    path : '/'
   },
   {
     Icon: TbEdit,
     title: "Create post",
+    path: '/'
   },
 ];
 
@@ -108,11 +113,11 @@ const Header = ({
                 {/* modal */}
                 <div id="create_menu_container" className="bg-[#282828] overflow-hidden flex flex-col absolute w-[12rem] h-[8rem] rounded-xl right-[7rem] top-[50px] text-white">
                   {
-                    CreateMenu.map(({Icon,title},i)=>
-                    <button id="create_menu_btn" key={i} className="flex-1 px-4 flex items-center hover:bg-gray-700" onClick={()=>console.log('clicked')}>
-                      <Icon size={22}/>
-                      <p className="ml-4">{title}</p>
-                    </button>
+                    CreateMenu.map(({Icon,title,path},i)=>
+                    <Link to={path} key={i} className="flex-1 px-4 flex items-center hover:bg-gray-700" onClick={()=>console.log('clicked')} >
+                        <Icon size={22}/>
+                        <p className="ml-4">{title}</p>
+                    </Link>
                     )
                   }
                 </div>
@@ -124,6 +129,11 @@ const Header = ({
           <button onClick={() => setNotificationToggling()}>
             <IoMdNotificationsOutline color="white" size={25} />
           </button>
+          <dialog
+          className="fixed top-[56px] right-[10rem] w-[30rem] p-0 h-[80%]"
+        >
+          <NotificationBox/>
+        </dialog>
         </div>
         <button>
           <div className="rounded-full bg-[white] m-[0.4rem]">
@@ -134,6 +144,7 @@ const Header = ({
     </div>
   );
 };
+
 
 const SearchBarHeader = ({
   setHeaderToggling,

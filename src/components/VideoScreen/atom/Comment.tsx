@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NestedComment from "./NestedComment";
+import NestedComment from "../molecule/NestedComment";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 export interface CommentInterface {

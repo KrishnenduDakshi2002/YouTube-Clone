@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
 import YouTubeShort from "../assets/youtube-shorts.png";
-import { VideoComponent } from "../components/components";
-import SEARCH1 from '../data/SEARCH_1.json';
+import { VideoComponent } from "../../components";
+import SEARCH1 from '../../../data/SEARCH_1.json';
 
 
 const VideosWrapper = () => {

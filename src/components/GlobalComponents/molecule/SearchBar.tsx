@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { VscHistory } from "react-icons/vsc";
-import HISTORY from "../data/search_history.json";
+import HISTORY from "../../../data/search_history.json";
 import { AiOutlineSearch } from "react-icons/ai";
 const SearchBar = () => {
   const [ToggleSearchHistory, setToggleSearchHistory] = useState(false);

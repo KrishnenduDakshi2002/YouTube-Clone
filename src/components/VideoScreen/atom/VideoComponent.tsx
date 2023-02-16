@@ -9,7 +9,7 @@ import Thumbnail2 from "../assets/Thumbnail-2.jpg";
 import Thumbnail3 from "../assets/Thumbnail-3.jpg";
 import TestVideo from "../assets/Video/test-video.mp4";
 import { useRef, useState } from "react";
-import { useAddtoQueueContext } from "../Context/AddToQueueContext";
+import { useAddtoQueueContext } from "../../../Context/AddToQueueContext";
 
 const ImageMap = new Map();
 ImageMap.set(0, Thumbnail1);
@@ -127,7 +127,7 @@ const VideoComponent:React.FC<VideoComponentInterface> = ({channelTitle,id,liveB
         <div className="text-white w-full h-full grid gap-y-2 grid-cols-[1fr_4fr] grid-rows-[auto_1fr_repeat(3,0.7rem)_3fr] cursor-pointer">
           <div className="col-span-3 aspect-video">
             <div className="">
-              {activePreview && <PreviewVideoPlayer videoId={videoId} />}
+              {activePreview && <PreviewVideoPlayer videoId={videoId} poster={thumbnail}/>}
             </div>
           </div>
           <div className="col-span-1 flex justify-center items-center">
@@ -172,7 +172,7 @@ const VideoComponent:React.FC<VideoComponentInterface> = ({channelTitle,id,liveB
   );
 };
 
-function PreviewVideoPlayer({ videoId }: { videoId: string }) {
+function PreviewVideoPlayer({ videoId,poster }: { videoId: string;poster:string; }) {
   const [muted, setMuted] = useState(true);
   return (
     <div className="relative">
@@ -189,7 +189,10 @@ function PreviewVideoPlayer({ videoId }: { videoId: string }) {
           src={TestVideo}
           className="w-full h-full"
           autoPlay
+          // it will show the image as a poster until the first frame of video is loaded
+          poster={poster}
           muted={muted}
+          onProgress={(e) => console.log(e)}
         ></video>
       </Link>
     </div>

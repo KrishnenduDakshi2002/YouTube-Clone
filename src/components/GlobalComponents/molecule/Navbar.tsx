@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { SideBarMini } from "./components/Sidebar_mini";
+import { SideBarMini } from "./Sidebar_mini";
 import {
   Header,
   Home,
-  NotificationBox,
   SearchBarHeader,
   Sidebar,
   SlidingSidebar,
-} from "./components/components";
-import { Outlet } from "react-router-dom";
+} from "../../components";
 
-const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;children:JSX.Element }) => {
+const NavBar = ({
+  sidebarVisibility,
+  children,
+}: {
+  sidebarVisibility: boolean;
+  children: JSX.Element;
+}) => {
   const [Toggle_Header_sm_screen, setToggle_Header_sm_screen] = useState(false);
   const [ToggleSideBar, setToggleSideBar] = useState(false);
   const [ToggleNotification, setToggleNotification] = useState(false);
@@ -43,11 +47,12 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
           setHeaderToggling={(state) => setToggle_Header_sm_screen(state)}
           setSideBarToggling={() => setToggleSideBar((prev) => !prev)}
         />
-        {ToggleNotification && (
+        {/* {ToggleNotification && (
           <div className="w-[30rem] h-[80%] absolute top-[50px] right-[5rem] z-10">
             <NotificationBox />
           </div>
-        )}
+        )} */}
+        
       </div>
       <div
         className={`${
@@ -86,11 +91,7 @@ const NavBar = ({ sidebarVisibility,children }: { sidebarVisibility: boolean;chi
 
       {/* If overflow is not hidden then scroll will not work in child */}
 
-      <div className="overflow-hidden">
-        {
-          children
-        }
-      </div>
+      <div className="overflow-hidden">{children}</div>
     </div>
   );
 };

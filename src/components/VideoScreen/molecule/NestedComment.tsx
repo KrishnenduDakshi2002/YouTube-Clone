@@ -1,5 +1,5 @@
 import React from 'react'
-import Comment, { CommentInterface } from './Comment';
+import Comment, { CommentInterface } from '../atom/Comment';
 
 const NestedComment = ({comments}:{comments:CommentInterface}) => {
   return (

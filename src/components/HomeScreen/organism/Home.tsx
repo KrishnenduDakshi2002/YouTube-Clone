@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import VideosWrapper from "./VideosWrapper";
-import AddToQueueComponent from "./AddToQueueComponent";
-import { useAddtoQueueContext } from "../Context/AddToQueueContext";
+import VideosWrapper from "../molecule/VideosWrapper";
+import AddToQueueComponent from "../molecule/AddToQueueComponent";
+import { useAddtoQueueContext } from "../../../Context/AddToQueueContext";
 const Filters = [
   "All",
   "Gaming",

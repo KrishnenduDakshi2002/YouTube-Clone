@@ -1,13 +1,13 @@
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import Home from "./Home";
-import SearchBar from "./SearchBar";
-import Shorts from "./Shorts";
-import Subscriptions from "./Subscriptions";
-import { SearchBarHeader } from "./Header";
-import SlidingSidebar from "./SlidingSidebar";
-import NotificationBox from "./Notification";
-import VideoComponent from "./VideoComponent";
+import Header from "./GlobalComponents/molecule/Header";
+import Sidebar from "./GlobalComponents/molecule/Sidebar";
+import Home from "./HomeScreen/organism/Home";
+import SearchBar from "./GlobalComponents/molecule/SearchBar";
+import Shorts from "./ShortsScreen/organism/Shorts";
+import Subscriptions from "./SubscriptionScreen/organism/Subscriptions";
+import { SearchBarHeader } from "./GlobalComponents/molecule/Header";
+import SlidingSidebar from "./GlobalComponents/molecule/SlidingSidebar";
+import NotificationBox from "./GlobalComponents/molecule/Notification";
+import VideoComponent from "./VideoScreen/atom/VideoComponent";
 export {
     Header,
     Sidebar,
